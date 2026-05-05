@@ -4,5 +4,114 @@
 <title>Easter Egg</title>
 </head>
 <body style="background-color: blue;">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MariLai Portfolio</title>
+    <link href="secrets.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="startup-screen">
+        <div class="loader-box">
+            <div style="font-size: 24px; color: #000;">Initializing MariLai.exe...</div>
+            <div class="progress-container">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="window">
+            <div class="title-bar">
+                <div>✿ MariLai_System.exe</div>
+                <div style="display: flex; gap: 4px;">
+                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff;">_</button>
+                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff;">X</button>
+                </div>
+            </div>
+
+            <div class="tab-wrapper">
+                <button class="nav-btn active" onclick="showTab(event, 'code')">Code</button>
+                <button class="nav-btn" onclick="showTab(event, 'writing')">Writing</button>
+                <button class="nav-btn" onclick="showTab(event, 'sketches')">Sketches</button>
+                <button class="nav-btn" onclick="showTab(event, 'art')">Art</button>
+                <button class="nav-btn" onclick="showTab(event, 'beyond')">Beyond</button>
+
+                <div class="music-player-bar">
+                    <button id="play-pause-btn" onclick="toggleMusic()">▶</button>
+                    <span class="track-info">♫ DSS Idle</span>
+                    <input type="range" class="seek-slider" id="music-slider" value="0">
+                    <audio id="audio-element" loop>
+                        <source src="title.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+
+            <div class="window-body">
+
+                <div id="code" class="tab-content active">
+                    <div class="gallery-grid" id="grid-code">
+                    </div>
+                </div>
+
+                <div id="writing" class="tab-content">
+                    <div class="gallery-grid" id="grid-writing"></div>
+                </div>
+
+                <div id="sketches" class="tab-content">
+                    <div class="gallery-grid" id="grid-sketches"></div>
+                </div>
+
+                <div id="art" class="tab-content">
+                    <div class="gallery-grid" id="grid-art"></div>
+                </div>
+
+            <div id="beyond" class="tab-content">
+
+                <img src="b.jpg" class="landscape-art" onclick="openModal(this.src)">
+                <div class="split-layout">
+                    <img src="bb.jpg" class="portrait-art" onclick="openModal(this.src)">
+                    <div class="justified-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    </div>
+                </div>
+
+                <img src="u.jpg" class="landscape-art" onclick="openModal(this.src)">
+                <div class="split-layout">
+                    <img src="srui.jpg" class="portrait-art" onclick="openModal(this.src)">
+                    <div class="justified-text">
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+                    </div>
+                </div>
+
+                <img src="pair.jpg" class="landscape-art" onclick="openModal(this.src)">
+
+                <div style="text-align: center; margin-top: 10px;">
+                    <p style="font-size: 16px; margin: 0; color: var(--win-shadow);">Truly yours, by Unreadabell.</p>
+                    <p style="font-size: 24px; margin: 5px 0 0 0;">🌻🩵🌿</p>
+                </div>
+                
+                <div class="footer-text">
+                    Thank you for playing! &lt;3
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="img-modal" onclick="this.style.display='none'">
+        <img id="modal-img" src="" style="max-width: 90%; max-height: 90%; border: 2px solid white;">
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+</html>
 </body>
 </html>
