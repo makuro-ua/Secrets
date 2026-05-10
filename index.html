@@ -44,8 +44,8 @@
                     <button id="play-pause-btn" onclick="toggleMusic()">▶</button>
                     <span class="track-info">♫ DSS Idle</span>
                     <input type="range" class="seek-slider" id="music-slider" value="0">
-                    <audio id="audio-element" loop>
-                        <source src="title.mp3" type="audio/mpeg">
+                    <audio id="audio-element" loop preload="auto">
+                            <source src="title.mp3" type="audio/mpeg">
                     </audio>
                 </div>
             </div>

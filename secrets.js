@@ -31,20 +31,20 @@ function populateGrid(gridId, tabName) {
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
+            function toggleMusic() {
+                const audio = document.getElementById('audio-element');
+                const playBtn = document.getElementById('play-pause-btn');
 
-        const audio = document.getElementById('audio-element');
-        const playBtn = document.getElementById('play-pause-btn');
-        const slider = document.getElementById('music-slider');
-
-        function toggleMusic() {
-            if (audio.paused) { audio.play(); playBtn.innerText = "II"; }
-            else { audio.pause(); playBtn.innerText = "▶"; }
-        }
-
-        audio.ontimeupdate = () => { slider.value = (audio.currentTime / audio.duration) * 100; };
-        slider.oninput = () => { audio.currentTime = (slider.value / 100) * audio.duration; };
-
-        function openModal(src) {
-            document.getElementById('img-modal').style.display = 'flex';
-            document.getElementById('modal-img').src = src;
-        }
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        playBtn.innerText = "II";
+                        console.log("Music started successfully!");
+                    }).catch(error => {
+                        console.error("Playback failed:", error);
+                        alert("Check if 'audios/Butcher_Vanity.mp3' exists in your folder!");
+                    });
+                } else {
+                    audio.pause();
+                    playBtn.innerText = "▶";
+                }
+            }
