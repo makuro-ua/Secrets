@@ -1,16 +1,314 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Easter Egg</title>
-</head>
-<body style="background-color: blue;">
-    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MariLai Portfolio</title>
-    <link href="secrets.css" rel="stylesheet">
+    <title>Behind The Scenes</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --win-grey: #c0c0c0;
+            --win-white: #ffffff;
+            --win-shadow: #808080;
+            --win-blue: #000080;
+            --bg-dark: #0a111f;
+            --inner-off-white: #d6d6d6;
+        }
+
+        @keyframes tinyStarScroll {
+            from { background-position: 0 0, 40px 40px; }
+            to { background-position: 100px 100px, 140px 140px; }
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle, #fff 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.2) 1.5px, transparent 1.5px);
+            background-size: 60px 60px, 100px 100px;
+            animation: tinyStarScroll 20s linear infinite;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Startup Screen */
+        #startup-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-box {
+            width: 320px;
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            padding: 20px;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.4);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: #ffffff;
+            border: 2px inset #808080;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--win-blue);
+            width: 0%;
+            animation: bootLoad 2s ease-in-out forwards;
+        }
+
+        @keyframes bootLoad { to { width: 100%; } }
+
+        /* Window Styling */
+        .window {
+            width: 950px;
+            background-color: var(--win-grey);
+            border: 3px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            padding: 3px;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.5);
+        }
+
+        .title-bar {
+            background: var(--win-blue);
+            color: white;
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 22px;
+        }
+
+        .tab-wrapper {
+            background-color: #7d96b8;
+            padding: 8px 8px 0 8px;
+            display: flex;
+            align-items: flex-end;
+            border-top: 2px solid var(--win-shadow);
+        }
+
+        .nav-btn {
+            background: #b5b5b5;
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            padding: 4px 12px;
+            border-radius: 4px 4px 0 0;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 2px;
+        }
+
+        .nav-btn.active {
+            background: var(--inner-off-white);
+            border-bottom: 2px solid var(--inner-off-white);
+            margin-bottom: -2px;
+            z-index: 10;
+        }
+
+        .music-player-bar {
+            flex-grow: 1;
+            margin-bottom: -2px;
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 2px 10px;
+            gap: 10px;
+            height: 32px;
+            z-index: 1;
+        }
+
+        .track-info { font-size: 18px; color: #000; }
+
+        #play-pause-btn {
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            width: 28px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .seek-slider {
+            flex-grow: 1;
+            appearance: none;
+            -webkit-appearance: none;
+            background: #ffffff;
+            height: 6px;
+            border: 1px inset #808080;
+            cursor: pointer;
+        }
+
+        .seek-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 18px;
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+            cursor: pointer;
+        }
+
+        /* Body & Content */
+        .window-body {
+            background: var(--inner-off-white);
+            border: 2px inset #808080;
+            margin: 0 8px 8px 8px;
+            height: 500px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .tab-content {
+            display: none;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: scroll;
+        }
+
+        .tab-content.active { display: block; }
+
+        .tab-content::-webkit-scrollbar { width: 16px; }
+        .tab-content::-webkit-scrollbar-track { background: #dfdfdf; border-left: 1px solid #888; }
+        .tab-content::-webkit-scrollbar-thumb {
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+        }
+
+        .item-card {
+            background: #fff;
+            border: 1px solid var(--win-shadow);
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .item-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #000;
+            cursor: zoom-in;
+            display: block;
+        }
+
+        .item-title { font-weight: bold; font-size: 22px; color: var(--win-blue); }
+        .item-desc { font-size: 18px; line-height: 1.1; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        /* Beyond the Screen Special Layout */
+        .landscape-art {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 2px solid #000;
+            margin: 20px 0;
+            cursor: zoom-in;
+        }
+
+        .split-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .portrait-art {
+            width: 40%;
+            height: 400px;
+            object-fit: cover;
+            border: 2px solid #000;
+            cursor: zoom-in;
+        }
+
+        .justified-text {
+            width: 60%;
+            font-size: 20px;
+            text-align: justify;
+            line-height: 1.3;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 32px;
+            margin: 50px 0;
+            padding: 20px;
+            border-top: 2px dashed var(--win-shadow);
+        }
+
+        #img-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #img-modal.open {
+            display: flex;
+        }
+
+        .volume-section {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+        }
+
+        .vol-slider {
+            width: 60px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: #ffffff;
+            height: 6px;
+            border: 1px inset #808080;
+            cursor: pointer;
+        }
+
+        .vol-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 14px;
+            background: var(--win-grey);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-shadow) var(--win-shadow) var(--win-white);
+        }
+    </style>
 </head>
 <body>
 
@@ -23,13 +321,13 @@
         </div>
     </div>
 
-    <div id="main-content">
+    <div id="main-content" style="display:none;">
         <div class="window">
             <div class="title-bar">
                 <div>✿ MariLai_System.exe</div>
                 <div style="display: flex; gap: 4px;">
-                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff;">_</button>
-                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff;">X</button>
+                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff; font-family: monospace; cursor:pointer;">_</button>
+                    <button style="width:18px; height:18px; background:var(--win-grey); border:1px solid #fff; font-family: monospace; cursor:pointer;">X</button>
                 </div>
             </div>
 
@@ -43,75 +341,254 @@
                 <div class="music-player-bar">
                     <button id="play-pause-btn" onclick="toggleMusic()">▶</button>
                     <span class="track-info">♫ DSS Idle</span>
-                    <input type="range" class="seek-slider" id="music-slider" value="0">
+                    <input type="range" class="seek-slider" id="music-slider" min="0" value="0" step="0.1">
+                    <div class="volume-section">
+                        <span style="font-size:14px; color:#000;">🔊</span>
+                        <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.05" value="0.7">
+                    </div>
                     <audio id="audio-element" loop preload="auto">
-                            <source src="title.mp3" type="audio/mpeg">
+                        <source src="title.mp3" type="audio/mpeg">
                     </audio>
                 </div>
             </div>
 
             <div class="window-body">
 
+                <!-- CODE TAB -->
                 <div id="code" class="tab-content active">
-                    <div class="gallery-grid" id="grid-code">
-                    </div>
+                    <div class="gallery-grid" id="grid-code"></div>
                 </div>
 
+                <!-- WRITING TAB -->
                 <div id="writing" class="tab-content">
                     <div class="gallery-grid" id="grid-writing"></div>
                 </div>
 
+                <!-- SKETCHES TAB -->
                 <div id="sketches" class="tab-content">
                     <div class="gallery-grid" id="grid-sketches"></div>
                 </div>
 
+                <!-- ART TAB -->
                 <div id="art" class="tab-content">
                     <div class="gallery-grid" id="grid-art"></div>
                 </div>
 
-            <div id="beyond" class="tab-content">
+                <!-- BEYOND TAB -->
+                <div id="beyond" class="tab-content">
+                    <img src="images/beyond/b01.png" class="landscape-art" onclick="openModal(this.src)">
+                    <div class="split-layout">
+                        <img src="images/beyond/b02.png" class="portrait-art" onclick="openModal(this.src)">
+                        <div class="justified-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        </div>
+                    </div>
 
-                <img src="b.jpg" class="landscape-art" onclick="openModal(this.src)">
-                <div class="split-layout">
-                    <img src="bb.jpg" class="portrait-art" onclick="openModal(this.src)">
-                    <div class="justified-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    <img src="images/beyond/b03.png" class="landscape-art" onclick="openModal(this.src)">
+                    <div class="split-layout">
+                        <img src="images/beyond/b04.png" class="portrait-art" onclick="openModal(this.src)">
+                        <div class="justified-text">
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+                        </div>
+                    </div>
+
+                    <img src="images/beyond/b05.png" class="landscape-art" onclick="openModal(this.src)">
+
+                    <div style="text-align: center; margin-top: 10px;">
+                        <p style="font-size: 16px; margin: 0; color: var(--win-shadow);">Truly yours, by Unreadabell.</p>
+                        <p style="font-size: 24px; margin: 5px 0 0 0;">🌻🩵🌿</p>
+                    </div>
+
+                    <div class="footer-text">
+                        Thank you for playing! &lt;3
                     </div>
                 </div>
 
-                <img src="u.jpg" class="landscape-art" onclick="openModal(this.src)">
-                <div class="split-layout">
-                    <img src="srui.jpg" class="portrait-art" onclick="openModal(this.src)">
-                    <div class="justified-text">
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
-                    </div>
-                </div>
-
-                <img src="pair.jpg" class="landscape-art" onclick="openModal(this.src)">
-
-                <div style="text-align: center; margin-top: 10px;">
-                    <p style="font-size: 16px; margin: 0; color: var(--win-shadow);">Truly yours, by Unreadabell.</p>
-                    <p style="font-size: 24px; margin: 5px 0 0 0;">🌻🩵🌿</p>
-                </div>
-                
-                <div class="footer-text">
-                    Thank you for playing! &lt;3
-                </div>
-            </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
-    <div id="img-modal" onclick="this.style.display='none'">
+    <!-- IMAGE MODAL -->
+    <div id="img-modal" onclick="closeModal()">
         <img id="modal-img" src="" style="max-width: 90%; max-height: 90%; border: 2px solid white;">
     </div>
 
     <script>
-        
+        // ─── Placeholder image data per tab ───────────────────────────────────────
+        const tabData = {
+            'grid-code': {
+                label: 'Code',
+                folder: 'images/code',
+                prefix: 'c',
+                descs: [
+                    'A terminal-based pixel renderer built in Python.',
+                    'Custom CLI tool for batch file renaming.',
+                    'Procedural dungeon generator using cellular automata.',
+                    'Lightweight CSS-in-JS utility library.',
+                    'Browser extension for distraction-free reading.',
+                    'WebGL shader experiments — flowing noise fields.',
+                    'Static site generator with Markdown + frontmatter.',
+                    'Discord bot for tabletop RPG dice rolling.',
+                    'SVG animation toolkit for retro-style interfaces.',
+                    'ASCII art renderer from image input.',
+                ],
+            },
+            'grid-writing': {
+                label: 'Writing',
+                folder: 'images/writing',
+                prefix: 'w',
+                descs: [
+                    'Short story: a cartographer who maps dreams.',
+                    'Essay on nostalgia in pixel art aesthetics.',
+                    'Poem sequence: letters to an imaginary city.',
+                    'Flash fiction: the last archivist.',
+                    'Personal essay on learning to code alone.',
+                    'World-building document for a flooded archipelago.',
+                    'Fan essay: the quiet grief of Disco Elysium.',
+                    'Micro-fiction series: objects that remember.',
+                    'Review: why lo-fi games deserve more critical attention.',
+                    'Collaborative zine piece on digital solitude.',
+                ],
+            },
+            'grid-sketches': {
+                label: 'Sketches',
+                folder: 'images/sketches',
+                prefix: 's',
+                descs: [
+                    'Character concept: wandering street vendor.',
+                    'Thumbnail studies — abandoned greenhouse.',
+                    'Loose gesture sketches from life drawing.',
+                    'Environment mood board: rainy harbour town.',
+                    'Creature design exploration: bioluminescent fauna.',
+                    'Prop designs for a fantasy apothecary.',
+                    'Perspective studies — cluttered workshop interior.',
+                    'Expression sheet for a tired archivist character.',
+                    'Quick architectural sketches — tiered rooftops.',
+                    'Ink experiment: layered linework textures.',
+                ],
+            },
+            'grid-art': {
+                label: 'Art',
+                folder: 'images/art',
+                prefix: 'a',
+                descs: [
+                    'Digital painting: girl reading under a streetlight.',
+                    'Pixel art diorama — cozy library at 3am.',
+                    'Illustrated map of a fictional island nation.',
+                    'Character portrait series: the four seasons.',
+                    'Animation frames: firefly blinking loop.',
+                    'Fanart: quiet moment from a favourite game.',
+                    'Illustrated book cover — ghost story anthology.',
+                    'Pattern design: pressed botanical motifs.',
+                    'Full-scene illustration — night market crowd.',
+                    'Colour study: the same room in four different lights.',
+                ],
+            },
+        };
+
+        function populateGrid(gridId) {
+            const grid = document.getElementById(gridId);
+            const data = tabData[gridId];
+            if (!grid || !data) return;
+            for (let i = 0; i < 10; i++) {
+                const num = String(i + 1).padStart(2, '0');
+                const src = `${data.folder}/${data.prefix}${num}.png`;
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <img src="${src}"
+                         alt="${data.label} project ${num}"
+                         loading="lazy"
+                         onclick="openModal(this.src)">
+                    <div class="item-title">${data.label} #${num}</div>
+                    <div class="item-desc">${data.descs[i]}</div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        // ─── Startup ──────────────────────────────────────────────────────────────
+        window.addEventListener('load', () => {
+            Object.keys(tabData).forEach(id => populateGrid(id));
+
+            setTimeout(() => {
+                const screen = document.getElementById('startup-screen');
+                screen.style.opacity = '0';
+                setTimeout(() => {
+                    screen.style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 500);
+            }, 2200);
+        });
+
+        // ─── Tab switching ────────────────────────────────────────────────────────
+        function showTab(event, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // ─── Modal ────────────────────────────────────────────────────────────────
+        function openModal(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('img-modal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('img-modal').classList.remove('open');
+        }
+
+        // ─── Music player ─────────────────────────────────────────────────────────
+        const audio    = document.getElementById('audio-element');
+        const playBtn  = document.getElementById('play-pause-btn');
+        const slider   = document.getElementById('music-slider');
+        const volSlider = document.getElementById('vol-slider');
+
+        audio.volume = 0.7;
+
+        // Keep slider max in sync once duration is known
+        audio.addEventListener('loadedmetadata', () => {
+            slider.max = Math.floor(audio.duration);
+        });
+
+        // Update seek slider as audio plays
+        audio.addEventListener('timeupdate', () => {
+            if (!slider.dataset.seeking) {
+                slider.value = audio.currentTime;
+            }
+        });
+
+        // Seek on slider change
+        slider.addEventListener('mousedown', () => { slider.dataset.seeking = 'true'; });
+        slider.addEventListener('mouseup', () => {
+            audio.currentTime = slider.value;
+            delete slider.dataset.seeking;
+        });
+        slider.addEventListener('input', () => {
+            if (slider.dataset.seeking) {
+                // live preview while dragging
+            }
+        });
+
+        // Volume control
+        volSlider.addEventListener('input', () => {
+            audio.volume = volSlider.value;
+        });
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play()
+                    .then(() => { playBtn.textContent = 'II'; })
+                    .catch(err => {
+                        console.warn('Autoplay blocked or file missing:', err);
+                        alert('Music could not play. Make sure your audio file is in the same folder as index.html, and replace the <source src="..."> with the correct path to your MP3.');
+                    });
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶';
+            }
+        }
     </script>
-</body>
-</html>
 </body>
 </html>
